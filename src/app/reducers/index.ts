@@ -1,12 +1,15 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store';
 import { ProjectListItem } from '../models';
 import * as fromProjects from './projects.reducer';
+import * as fromTodos from './todos.reducer';
 export interface AppState {
   projects: fromProjects.ProjectState;
+  todos: fromTodos.TodosState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  projects: fromProjects.reducer
+  projects: fromProjects.reducer,
+  todos: fromTodos.reducer
 };
 
 // 1. If in a feature, create a featureSelector
