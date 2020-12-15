@@ -4,7 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ListItem } from 'src/app/models/list-item';
 import { AppState, selectInboxList, selectTodosForProject } from 'src/app/reducers';
-
+import { TodoEntity } from 'src/app/reducers/todos.reducer';
+import * as actions from '../../actions/todo-item.actions';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -38,5 +39,12 @@ export class ListComponent implements OnInit {
 
   close(): void {
     this.dialogRef.close();
+  }
+
+  markComplete(todo: TodoEntity): void {
+    this.store.dispatch(actions.markTodoItemCompleted({ payload: todo }));
+  }
+  markIncomplete(todo: TodoEntity): void {
+    this.store.dispatch(actions.markTodoItemIncomplete({ payload: todo }));
   }
 }

@@ -20,7 +20,21 @@ const initialState = adapter.getInitialState();
 
 const reducerFunction = createReducer(
   initialState,
-  on(actions.todoItemAdded, (state, action) => adapter.addOne(action.payload, state))
+  on(actions.todoItemAdded, (state, action) => adapter.addOne(action.payload, state)),
+  on(actions.markTodoItemCompleted, actions.markTodoItemIncomplete, (state, action) => adapter.updateOne(
+    {
+      id: action.payload.id,
+      changes: {
+        completed: !action.payload.completed
+      }
+    }, state)),
+  on(actions.clearCompletedTodoItems, (state) => {
+    const completedIds = state.ids
+      .map(id => state.entities[id]) // [{id: '1'...}] (an array of all the entities)
+      .filter(t => t.completed) // Just the entities that are completed.
+      .map(t => t.id); // and just the ids so like ['T1', 'T2','T15']
+    return adapter.removeMany(completedIds, state);
+  })
 );
 
 export function reducer(state: TodosState = initialState, action: Action): TodosState {

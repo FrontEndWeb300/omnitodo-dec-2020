@@ -61,7 +61,6 @@ export const selectInboxList = createSelector(
     return todos
       .map(todo => ({
         ...todo,
-        completed: false
       } as ListItem));
   }
 );
@@ -80,7 +79,6 @@ export const selectTodosForProject = createSelector(
       .map((todo: fromTodos.TodoEntity) => ({
         ...todo,
         project: projects.filter(p => p.id === todo.project)[0]?.name,
-        completed: false
       } as ListItem));
   }
 );
