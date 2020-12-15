@@ -2,5 +2,5 @@
   <app-actions></app-actions>
   <app-forecast></app-forecast>
   <app-inbox></app-inbox>
-  <app-projects></app-projects>
+  <app-projects [items]="projectSummaryItems$ | async"></app-projects>
 </mat-card>

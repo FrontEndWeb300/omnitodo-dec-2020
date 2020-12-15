@@ -30,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './reducers';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { reducers } from './reducers';
     ForecastComponent,
     InboxComponent,
     ProjectsComponent,
-    TodoEntryComponent
+    TodoEntryComponent,
+    ListComponent
   ],
   imports: [
     StoreModule.forRoot(reducers),
