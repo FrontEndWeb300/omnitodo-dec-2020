@@ -1,1 +1,13 @@
-<h3>Showing your {{ data.filter | titlecase}}</h3>
+<h3>Showing {{ data.filter }}</h3>
+<div class="item-list"
+     *ngFor="let item of list$ | async">
+  <span>{{item.name}}</span>
+  <mat-divider></mat-divider>
+  <span>Project: {{ item.project || 'No Project' }}</span>
+  <span>Due: {{ item.dueDate || 'No Due Date' }}</span>
+  <span *ngIf="!item.completed">Click Here To Complete This Item</span>
+  <span *ngIf="item.completed">You Completed This Item</span>
+</div>
+
+<button mat-button
+        (click)="close()">Close</button>

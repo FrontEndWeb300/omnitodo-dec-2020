@@ -1,5 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ListItem } from 'src/app/models/list-item';
+import { AppState, selectInboxList, selectTodosForProject } from 'src/app/reducers';
 
 @Component({
   selector: 'app-list',
@@ -8,12 +12,31 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ListComponent implements OnInit {
 
+  list$: Observable<ListItem[]>;
   constructor(
+    private store: Store<AppState>,
     private dialogRef: MatDialogRef<ListComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { filter: string }
+    @Inject(MAT_DIALOG_DATA) public data: { filter: string, id: string }
   ) { }
 
   ngOnInit(): void {
+    switch (this.data.filter) {
+      case 'inbox': {
+        this.list$ = this.store.pipe(
+          select(selectInboxList)
+        );
+        break;
+      }
+      case 'project': {
+        this.list$ = this.store.pipe(
+          select(selectTodosForProject, { project: this.data.id })
+        );
+        break;
+      }
+    }
   }
 
+  close(): void {
+    this.dialogRef.close();
+  }
 }

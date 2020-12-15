@@ -1,5 +1,6 @@
 import { ActionReducerMap, createSelector } from '@ngrx/store';
 import { ProjectListItem, ProjectSummaryItem } from '../models';
+import { ListItem } from '../models/list-item';
 import * as fromProjects from './projects.reducer';
 import * as fromTodos from './todos.reducer';
 export interface AppState {
@@ -29,6 +30,10 @@ const { selectAll: selectAllTodosArray } = fromTodos.adapter.getSelectors(select
 // const selectAllProjectsArray = fromProjects.adapter.getSelectors(selectProjectsBranch).selectAll;
 // const selectProjectCount = fromProjects.adapter.getSelectors(selectProjectsBranch).selectTotal;
 
+const selectInboxEntities = createSelector(
+  selectAllTodosArray,
+  todos => todos.filter(todo => todo.dueDate === null && todo.project === null)
+);
 
 // 4. What the component needs.
 
@@ -46,5 +51,36 @@ export const selectDashboardProjects = createSelector(
       ...p,
       count: todos.filter(t => t.project === p.id).length
     } as ProjectSummaryItem));
+  }
+);
+
+// ListItem[]
+export const selectInboxList = createSelector(
+  selectInboxEntities,
+  (todos) => {
+    return todos
+      .map(todo => ({
+        ...todo,
+        completed: false
+      } as ListItem));
+  }
+);
+
+export const selectCountOfInboxItems = createSelector(
+  selectInboxEntities,
+  todos => todos.length
+);
+
+// Paramaterized Selector - when we hook up to this, we are going to supply "props".
+export const selectTodosForProject = createSelector(
+  selectAllTodosArray,
+  selectAllProjectsArray,
+  (todos, projects, props: { project: string }) => {
+    return todos.filter(todo => todo.project === props.project)
+      .map((todo: fromTodos.TodoEntity) => ({
+        ...todo,
+        project: projects.filter(p => p.id === todo.project)[0]?.name,
+        completed: false
+      } as ListItem));
   }
 );
