@@ -3,14 +3,18 @@ import { ProjectListItem, ProjectSummaryItem } from '../models';
 import { ListItem } from '../models/list-item';
 import * as fromProjects from './projects.reducer';
 import * as fromTodos from './todos.reducer';
+import * as fromAuth from './auth.reducer';
+
 export interface AppState {
   projects: fromProjects.ProjectState;
   todos: fromTodos.TodosState;
+  auth: fromAuth.AuthState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   projects: fromProjects.reducer,
-  todos: fromTodos.reducer
+  todos: fromTodos.reducer,
+  auth: fromAuth.reducer
 };
 
 // 1. If in a feature, create a featureSelector
@@ -19,6 +23,7 @@ export const reducers: ActionReducerMap<AppState> = {
 // 2. Create a selector for each property off the root of the state.
 const selectProjectsBranch = (state: AppState) => state.projects;
 const selectTodosBranch = (state: AppState) => state.todos;
+const selectAuthBranch = (state: AppState) => state.auth;
 // 3. Any helpers that are used.
 // look up on google (or bing) "MDN Object Destructuring"
 
@@ -36,6 +41,11 @@ const selectInboxEntities = createSelector(
 );
 
 // 4. What the component needs.
+export const selectIsLoggedIn = createSelector(
+  selectAuthBranch,
+  b => b.isLoggedIn
+);
+
 
 // TODO: ProjectListItem[]
 export const selectProjectListItems = createSelector(

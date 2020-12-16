@@ -18,6 +18,8 @@ export const adapter = createEntityAdapter<TodoEntity>();
 
 const initialState = adapter.getInitialState();
 
+
+
 const reducerFunction = createReducer(
   initialState,
   on(actions.todoItemAdded, (state, action) => adapter.addOne(action.payload, state)),
@@ -29,7 +31,9 @@ const reducerFunction = createReducer(
       }
     }, state)),
   on(actions.clearCompletedTodoItems, (state) => {
-    const completedIds = state.ids
+
+    const ids = state.ids as string[];
+    const completedIds = ids
       .map(id => state.entities[id]) // [{id: '1'...}] (an array of all the entities)
       .filter(t => t.completed) // Just the entities that are completed.
       .map(t => t.id); // and just the ids so like ['T1', 'T2','T15']

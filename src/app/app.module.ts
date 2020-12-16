@@ -31,6 +31,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './reducers';
 import { ListComponent } from './components/list/list.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ListComponent } from './components/list/list.component';
     InboxComponent,
     ProjectsComponent,
     TodoEntryComponent,
-    ListComponent
+    ListComponent,
+    LoginComponent
   ],
   imports: [
     StoreModule.forRoot(reducers),
