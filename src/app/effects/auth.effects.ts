@@ -10,10 +10,11 @@ import * as actions from '../actions/auth.actions';
 export class AuthEffects {
   private readonly baseUrl = environment.apiUrl;
 
+  // if we logged in send them to the dashboard but DO NOT DISPATCH AN ACTION.
   loginSucceed$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.loginSucceeded),
-      tap(() => this.router.navigate(['dashboard']))
+      tap(() => this.router.navigate(['dashboard'])) // whatever action comes goes out the other said (loginSucceed => loginSucceeded)
     ), { dispatch: false }
   );
 
