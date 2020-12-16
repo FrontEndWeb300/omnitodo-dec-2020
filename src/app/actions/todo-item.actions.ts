@@ -29,3 +29,18 @@ export const markTodoItemIncomplete = createAction(
 export const clearCompletedTodoItems = createAction(
   '[app] clear completed todo items'
 );
+
+
+export const loadTodos = createAction(
+  '[app] load todos'
+);
+
+export const loadTodosSucceeded = createAction(
+  '[app] load todos succeeded',
+  props<{ payload: TodoEntity[] }>()
+);
+
+export const loadTodosFailed = createAction(
+  '[app] load todos failed',
+  props<{ payload: string }>()
+);
