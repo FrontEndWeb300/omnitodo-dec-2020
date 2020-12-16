@@ -37,7 +37,9 @@ const { selectAll: selectAllTodosArray } = fromTodos.adapter.getSelectors(select
 
 const selectInboxEntities = createSelector(
   selectAllTodosArray,
-  todos => todos.filter(todo => todo.dueDate === null && todo.project === null)
+  todos => todos.filter(todo =>
+    (todo.dueDate === null || todo.dueDate === undefined) && (todo.project === null || todo.project === undefined))
+  // !!todo.dueDate && !!todo.project)
 );
 
 // 4. What the component needs.
@@ -82,7 +84,10 @@ export const selectInboxList = createSelector(
 
 export const selectCountOfInboxItems = createSelector(
   selectInboxEntities,
-  todos => todos.length
+  todos => {
+    console.log(todos);
+    return todos.length;
+  }
 );
 
 // Paramaterized Selector - when we hook up to this, we are going to supply "props".

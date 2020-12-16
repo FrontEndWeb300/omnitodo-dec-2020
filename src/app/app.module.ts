@@ -37,6 +37,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './effects/auth.effects';
 import { ProjectEffects } from './effects/project.effects';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { TodoEffects } from './effects/todos.effects';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
   imports: [
     HttpClientModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, ProjectEffects]),
+    EffectsModule.forRoot([AuthEffects, ProjectEffects, TodoEffects]),
     StoreDevtoolsModule.instrument(),
     ReactiveFormsModule,
     MatDialogModule,
