@@ -4,6 +4,7 @@ import { TodoEntity } from '../reducers/todos.reducer';
 
 let fakeId = 1;
 
+// Initiator
 export const todoItemAdded = createAction(
   '[app] todo item added',
   ({ item }: { item: TodoItemCreate }) => ({
@@ -14,6 +15,15 @@ export const todoItemAdded = createAction(
   })
 );
 
+export const todoItemAddedSuccessfully = createAction(
+  '[app] todo item added successfully',
+  props<{ oldId: string, payload: TodoEntity }>()
+);
+
+export const todoItemAddedFailure = createAction(
+  '[app] todo item added failure',
+  props<{ message: string, payload: TodoEntity }>()
+);
 
 export const markTodoItemCompleted = createAction(
   '[app] todo item marked completed',

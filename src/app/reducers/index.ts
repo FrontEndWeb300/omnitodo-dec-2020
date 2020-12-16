@@ -85,7 +85,6 @@ export const selectInboxList = createSelector(
 export const selectCountOfInboxItems = createSelector(
   selectInboxEntities,
   todos => {
-    console.log(todos);
     return todos.length;
   }
 );

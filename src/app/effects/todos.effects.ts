@@ -18,6 +18,22 @@ export class TodoEffects {
     )
   );
 
+  saveTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.todoItemAdded),
+      switchMap(originalAction => this.service.addTodo({
+        name: originalAction.payload.name,
+        dueDate: originalAction.payload.dueDate,
+        project: originalAction.payload.project
+      })
+        .pipe(
+          map(response => actions.todoItemAddedSuccessfully({ oldId: originalAction.payload.id, payload: response })),
+          catchError(() => of(actions.todoItemAddedFailure({ message: 'Could not Add Todo', payload: originalAction.payload })))
+        )
+      )
+    ), { dispatch: true }
+  );
+
   loadData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.loadTodos),
