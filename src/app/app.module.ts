@@ -35,6 +35,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './effects/auth.effects';
+import { ProjectEffects } from './effects/project.effects';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { AuthEffects } from './effects/auth.effects';
   imports: [
     HttpClientModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, ProjectEffects]),
     StoreDevtoolsModule.instrument(),
     ReactiveFormsModule,
     MatDialogModule,
