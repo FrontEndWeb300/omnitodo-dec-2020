@@ -30,7 +30,7 @@
       <mat-select formControlName="project">
         <mat-option></mat-option>
         <mat-option *ngFor="let project of projects$ | async"
-                    value="{{project.id}}">
+                    value="{{project.name}}">
           {{ project.name }}
         </mat-option>
 

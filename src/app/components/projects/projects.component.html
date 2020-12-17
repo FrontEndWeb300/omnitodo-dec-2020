@@ -5,7 +5,7 @@
     <button mat-button
             *ngFor="let item of items">
       <mat-chip [routerLink]=""
-                [queryParams]="{project: item.id}">
+                [queryParams]="{project: item.name}">
         <mat-icon>event</mat-icon> {{item.name}} ({{item.count}})
       </mat-chip>
     </button>

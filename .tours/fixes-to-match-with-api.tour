@@ -1,0 +1,36 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Fixes to match with API",
+  "steps": [
+    {
+      "file": "src/app/components/todo-entry/todo-entry.component.html",
+      "line": 33,
+      "description": "Changed the value for the option to be the *name* of the project, instead of the Id."
+    },
+    {
+      "file": "src/app/reducers/index.ts",
+      "line": 93,
+      "description": "Update this selector - we no longer need the projects since the name of the project a todo item is associated with is in the item iteself",
+      "selection": {
+        "start": {
+          "line": 95,
+          "character": 2
+        },
+        "end": {
+          "line": 95,
+          "character": 26
+        }
+      }
+    },
+    {
+      "file": "src/app/components/projects/projects.component.html",
+      "line": 8,
+      "description": "Change the query param to the item.name from item.id"
+    },
+    {
+      "file": "src/app/reducers/index.ts",
+      "line": 69,
+      "description": "Change this selector to use the project's name.\r\n\r\nWhen you are done with this - you should be ready to go.\r\nRun this:\r\n>>ng serve"
+    }
+  ]
+}

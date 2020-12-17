@@ -66,7 +66,7 @@ export const selectDashboardProjects = createSelector(
   (projects, todos) => {
     return projects.map(p => ({
       ...p,
-      count: todos.filter(t => t.project === p.id).length
+      count: todos.filter(t => t.project === p.name).length
     } as ProjectSummaryItem));
   }
 );
@@ -92,12 +92,10 @@ export const selectCountOfInboxItems = createSelector(
 // Paramaterized Selector - when we hook up to this, we are going to supply "props".
 export const selectTodosForProject = createSelector(
   selectAllTodosArray,
-  selectAllProjectsArray,
-  (todos, projects, props: { project: string }) => {
+  (todos, props: { project: string }) => {
     return todos.filter(todo => todo.project === props.project)
       .map((todo: fromTodos.TodoEntity) => ({
         ...todo,
-        project: projects.filter(p => p.id === todo.project)[0]?.name,
       } as ListItem));
   }
 );
